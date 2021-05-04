@@ -47,7 +47,7 @@ $(document).ready(function () {
 		$("#recommends").empty();
 		console.log("refreshing");
 
-		RefreshSelections();
+		//RefreshSelections();
 
 		complete = false;
 	}
@@ -101,7 +101,7 @@ function RecommendGames(selections){
 function RefreshSelections(){
 	var options = document.createElement("select");
 	options.setAttribute("class", "image-picker");
-	options.setAttribute("id", "pics");
+	options.setAttribute("name", "pics");
 	options.setAttribute("data-limit", "3");
 	options.setAttribute("multiple", "multiple");
 	for (var i=1; i <= 6; i++){
