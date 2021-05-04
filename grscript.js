@@ -31,7 +31,6 @@ $(document).ready(function () {
 	}
 	
 	document.getElementById("refresh").onclick = function() {
-		$("#select").data("picker").empty();
 
 		$("#option2").empty();
 		$("#option3").empty();
@@ -39,7 +38,6 @@ $(document).ready(function () {
 		$("#recommends").empty();
 		console.log("refreshing");
 
-		$("select").imagepicker();
 		complete = false;
 	}
 });
