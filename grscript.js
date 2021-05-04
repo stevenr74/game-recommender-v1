@@ -2,13 +2,22 @@ $(document).ready(function () {
 	var matches;
 	var secondMatches = [];
 	var complete = false;
+
+	var games = [];
+	games[1] = {title:"Fortnite", genre:"shooter", age:"2018-2019", img:"fortnite.jpg"};
+	games[2] = {title:"World of Warcraft", genre:"mmo rpg", age:"2004-2019", img:"wow.jpg"};
+	games[3] = {title:"The Witcher 3", genre:"rpg", age:"2015", img:"witcher3.jpg"};
+	games[4] = {title:"Call of Duty Black Ops 4", genre:"shooter", age:"2018", img:"codbo4.jpg"};
+	games[5] = {title:"Minecraft", genre:"builder", age:"2019", img:"minecraft.png"};
+	games[6] = {title:"Stardew Valley", genre:"simulation rpg", age:"2016", img:"stardew.jpg"};
+
 	// Initialize the image picker
     $("select").imagepicker();
 	// Get selection(s) on click
 	document.getElementById("submit").onclick = function (){
 		var selections = $("select").data("picker").selected_values();
 		if(($("select[name=newOptions]").length == 0) && selections.length){
-			matches = recommendGames(selections);
+			matches = RecommendGames(selections);
 			$("select[name=newOptions]").imagepicker();
 		}
 		else if (complete == false){
@@ -22,7 +31,7 @@ $(document).ready(function () {
 				}
 			}
 			
-			var genres = recommendGenresAndGames(secondMatches);
+			var genres = RecommendGenresAndGames(secondMatches);
 			for (i = 0; i < genres.length; i++){
 				$("select[name=" + genres[i] + "]").imagepicker();
 			}
@@ -31,27 +40,23 @@ $(document).ready(function () {
 	}
 	
 	document.getElementById("refresh").onclick = function() {
-
+		$("#content").empty();
 		$("#option2").empty();
 		$("#option3").empty();
 		$("#option4").empty();
 		$("#recommends").empty();
 		console.log("refreshing");
 
+		RefreshSelections();
+
 		complete = false;
 	}
 });
 
+
 //matches initial selections with possible 2nd tier selections based on genre, after which the user selects again to narrow down results
-function recommendGames(selections){
+function RecommendGames(selections){
 	//var selections = $("select").data("picker").selected_values();
-	var games = [];
-	games[1] = {title:"Fortnite", genre:"shooter", age:"2018-2019", img:"fortnite.jpg"};
-	games[2] = {title:"World of Warcraft", genre:"mmo rpg", age:"2004-2019", img:"wow.jpg"};
-	games[3] = {title:"The Witcher 3", genre:"rpg", age:"2015", img:"witcher3.jpg"};
-	games[4] = {title:"Call of Duty Black Ops 4", genre:"shooter", age:"2018", img:"codbo4.jpg"};
-	games[5] = {title:"Minecraft", genre:"builder", age:"2019", img:"minecraft.png"};
-	games[6] = {title:"Stardew Valley", genre:"simulation rpg", age:"2016", img:"stardew.jpg"};
 	
 	var recommendations = [];
 	recommendations[1] = {title:"Call of Duty Modern Warfare", genre:"shooter", age:"2019", img:"codmw.jpg"};
@@ -93,8 +98,23 @@ function recommendGames(selections){
 	return matches;
 }
 
+function RefreshSelections(){
+	var options = document.createElement("select");
+	options.setAttribute("class", "image-picker");
+	options.setAttribute("id", "pics");
+	options.setAttribute("data-limit", "3");
+	options.setAttribute("multiple", "multiple");
+	for (var i=1; i <= 6; i++){
+		var optionSelection = document.createElement("option");
+		optionSelection.setAttribute("data-img-src", games[i].title);
+		optionSelection.setAttribute("value", i)
+		options.appendChild(optionSelection)
+	}
+	document.getElementById("content").appendChild(options);
+}
+
 //recieves selections of games from the 2nd tier, returns recommended games based on genre matching
-function recommendGenresAndGames(selections){
+function RecommendGenresAndGames(selections){
 	var matches = [];
 	var recommendations = [];
 	recommendations[1] = {title:"Battlefield 5", genre:"shooter", age:"2018", img:"bf5.jpg"};
@@ -144,3 +164,4 @@ function recommendGenresAndGames(selections){
 	}
 	return genres;
 }
+
