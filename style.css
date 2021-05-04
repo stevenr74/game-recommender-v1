@@ -105,3 +105,8 @@ hr {
   border-style: inset;
   border-width: 3px;
 } 
+
+.topnav {
+	background-color: #333;
+	overflow: hidden;
+}
