@@ -56,7 +56,7 @@ $(document).ready(function () {
 
 //matches initial selections with possible 2nd tier selections based on genre, after which the user selects again to narrow down results
 function RecommendGames(selections){
-	//var selections = $("select").data("picker").selected_values();
+	var selections = $("select").data("picker").selected_values();
 	
 	var recommendations = [];
 	recommendations[1] = {title:"Call of Duty Modern Warfare", genre:"shooter", age:"2019", img:"codmw.jpg"};
