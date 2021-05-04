@@ -40,7 +40,7 @@ $(document).ready(function () {
 	}
 	
 	document.getElementById("refresh").onclick = function() {
-		$("#content").empty();
+		//$("#content").empty();
 		$("#option2").empty();
 		$("#option3").empty();
 		$("#option4").empty();
