@@ -31,14 +31,14 @@ $(document).ready(function () {
 	}
 	
 	document.getElementById("refresh").onclick = function() {
-		$("#select").empty();
+		$("#select").data("picker").empty();
 
 		$("#option2").empty();
 		$("#option3").empty();
 		$("#option4").empty();
 		$("#recommends").empty();
 		console.log("refreshing");
-		
+
 		$("select").imagepicker();
 		complete = false;
 	}
