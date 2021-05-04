@@ -30,6 +30,7 @@ img {
 body {
 	background-color: #121721;
 	color: white;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 h1 {
@@ -109,4 +110,6 @@ hr {
 .topnav {
 	background-color: #333;
 	overflow: hidden;
+	font-family: Arial, Helvetica, sans-serif;
 }
+
