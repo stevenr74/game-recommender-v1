@@ -1,14 +1,23 @@
 $(document).ready(function () {
+
 	var matches;
 	var secondMatches = [];
 	var complete = false;
+	var games = [];
+	games[1] = {title:"Fortnite", genre:"shooter", age:"2018-2019", img:"fortnite.jpg"};
+	games[2] = {title:"World of Warcraft", genre:"mmo rpg", age:"2004-2019", img:"wow.jpg"};
+	games[3] = {title:"The Witcher 3", genre:"rpg", age:"2015", img:"witcher3.jpg"};
+	games[4] = {title:"Call of Duty Black Ops 4", genre:"shooter", age:"2018", img:"codbo4.jpg"};
+	games[5] = {title:"Minecraft", genre:"builder", age:"2019", img:"minecraft.png"};
+	games[6] = {title:"Stardew Valley", genre:"simulation rpg", age:"2016", img:"stardew.jpg"};
+
 	// Initialize the image picker
     $("select").imagepicker();
 	// Get selection(s) on click
 	document.getElementById("submit").onclick = function (){
 		var selections = $("select").data("picker").selected_values();
 		if(($("select[name=newOptions]").length == 0) && selections.length){
-			matches = recommendGames(selections);
+			matches = recommendGames(selections, games);
 			$("select[name=newOptions]").imagepicker();
 		}
 		else if (complete == false){
@@ -30,26 +39,22 @@ $(document).ready(function () {
 		}
 	}
 	
-	document.getElementById("refresh").onclick = function() {
+	document.getElementById("refresh").onclick = function (){
+		$("#content").empty();
 		$("#option2").empty();
 		$("#option3").empty();
 		$("#option4").empty();
 		$("#recommends").empty();
 		console.log("refreshing");
 		complete = false;
+
+		RefreshInitialOptions(games);
 	}
 });
 
 //matches initial selections with possible 2nd tier selections based on genre, after which the user selects again to narrow down results
-function recommendGames(selections){
+function recommendGames(selections, games){
 	//var selections = $("select").data("picker").selected_values();
-	var games = [];
-	games[1] = {title:"Fortnite", genre:"shooter", age:"2018-2019", img:"fortnite.jpg"};
-	games[2] = {title:"World of Warcraft", genre:"mmo rpg", age:"2004-2019", img:"wow.jpg"};
-	games[3] = {title:"The Witcher 3", genre:"rpg", age:"2015", img:"witcher3.jpg"};
-	games[4] = {title:"Call of Duty Black Ops 4", genre:"shooter", age:"2018", img:"codbo4.jpg"};
-	games[5] = {title:"Minecraft", genre:"builder", age:"2019", img:"minecraft.png"};
-	games[6] = {title:"Stardew Valley", genre:"simulation rpg", age:"2016", img:"stardew.jpg"};
 	
 	var recommendations = [];
 	recommendations[1] = {title:"Call of Duty Modern Warfare", genre:"shooter", age:"2019", img:"codmw.jpg"};
@@ -82,7 +87,7 @@ function recommendGames(selections){
 	newOptions.setAttribute("multiple", "multiple");
 	for (var i=0; i < matches.length; i++){
 		var optionSelection = document.createElement("option");
-		optionSelection.setAttribute("data-img-src", matches[i].img);
+		optionSelection.setAttribute("data-img-src", ("images/" + matches[i].img));
 		optionSelection.setAttribute("value", i+1);
 		newOptions.appendChild(optionSelection);
 	}
@@ -127,7 +132,7 @@ function recommendGenresAndGames(selections){
 		for (var j = 1; j < recommendations.length; j++){
 			if(recommendations[j].genre == genres[i]){
 				var optionSelection = document.createElement("option");
-				optionSelection.setAttribute("data-img-src", recommendations[j].img);
+				optionSelection.setAttribute("data-img-src", ("images/" + recommendations[j].img));
 				optionSelection.setAttribute("value", j);
 				newOptions.appendChild(optionSelection);
 			}
@@ -141,4 +146,24 @@ function recommendGenresAndGames(selections){
 		}
 	}
 	return genres;
+}
+
+function RefreshInitialOptions(games){
+	var pics = document.createElement("select");
+	pics.setAttribute("class", "image-picker");
+	pics.setAttribute("id", "pics");
+	pics.setAttribute("data-limit", "3");
+	pics.setAttribute("multiple", "multiple");
+
+
+	for (var i=1; i < games.length; i++){
+		console.log(games[i].img)
+		var optionSelection = document.createElement("option");
+		optionSelection.setAttribute("data-img-src", ("images/" + games[i].img));
+		optionSelection.setAttribute("value", i);
+		optionSelection.setAttribute("title", games[i].title);
+		pics.appendChild(optionSelection);
+	}
+	document.getElementById("content").appendChild(pics);
+	$("select").imagepicker();
 }
