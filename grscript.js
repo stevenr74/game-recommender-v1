@@ -17,7 +17,7 @@ $(document).ready(function () {
 	document.getElementById("submit").onclick = function (){
 		var selections = $("select").data("picker").selected_values();
 		if(($("select[name=newOptions]").length == 0) && selections.length){
-			matches = recommendGames(selections, games);
+			matches = RecommendGames(selections, games);
 			$("select[name=newOptions]").imagepicker();
 		}
 		else if (complete == false){
@@ -31,7 +31,7 @@ $(document).ready(function () {
 				}
 			}
 			
-			var genres = recommendGenresAndGames(secondMatches);
+			var genres = RecommendGamesBasedOnGenres(secondMatches);
 			for (i = 0; i < genres.length; i++){
 				$("select[name=" + genres[i] + "]").imagepicker();
 			}
@@ -53,7 +53,7 @@ $(document).ready(function () {
 });
 
 //matches initial selections with possible 2nd tier selections based on genre, after which the user selects again to narrow down results
-function recommendGames(selections, games){
+function RecommendGames(selections, games){
 	//var selections = $("select").data("picker").selected_values();
 	
 	var recommendations = [];
@@ -97,7 +97,7 @@ function recommendGames(selections, games){
 }
 
 //recieves selections of games from the 2nd tier, returns recommended games based on genre matching
-function recommendGenresAndGames(selections){
+function RecommendGamesBasedOnGenres(selections){
 	var matches = [];
 	var recommendations = [];
 	recommendations[1] = {title:"Battlefield 5", genre:"shooter", age:"2018", img:"bf5.jpg"};
@@ -148,6 +148,7 @@ function recommendGenresAndGames(selections){
 	return genres;
 }
 
+//recreates the initial image selection screen 
 function RefreshInitialOptions(games){
 	var pics = document.createElement("select");
 	pics.setAttribute("class", "image-picker");
