@@ -93,6 +93,10 @@ p {
   color: white;
 }
 
+.button {
+	border-radius: 16px;
+}
+
 div {
 	display: flex;
 	justify-content: center;
