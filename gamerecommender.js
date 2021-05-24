@@ -18,6 +18,9 @@ $(document).ready(function () {
 		var selections = $("select").data("picker").selected_values();
 		if(($("select[name=newOptions]").length == 0) && selections.length){
 			matches = RecommendGames(selections, games);
+
+			document.getElementById("text2").innerHTML = "<p>Select up to two more games from the row below.</p>"
+
 			$("select[name=newOptions]").imagepicker();
 		}
 		else if (complete == false){
@@ -45,7 +48,6 @@ $(document).ready(function () {
 		$("#option3").empty();
 		$("#option4").empty();
 		$("#recommends").empty();
-		console.log("refreshing");
 		complete = false;
 
 		RefreshInitialOptions(games);
