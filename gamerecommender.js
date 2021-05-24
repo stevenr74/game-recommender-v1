@@ -45,6 +45,7 @@ $(document).ready(function () {
 	document.getElementById("refresh").onclick = function (){
 		$("#content").empty();
 		$("#option2").empty();
+		$("#text2").empty();
 		$("#option3").empty();
 		$("#option4").empty();
 		$("#recommends").empty();
